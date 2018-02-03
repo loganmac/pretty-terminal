@@ -1,7 +1,8 @@
 {-# LANGUAGE FlexibleInstances    #-}
 {-# LANGUAGE OverloadedStrings    #-}
 {-# LANGUAGE TypeSynonymInstances #-}
-
+{-| Useful helpers to style and color text with ANSI escape sequences.
+-}
 module System.Console.Pretty
 ( Color(..) , Section(..) , Style(..)
 , color , bgColor , colorize , style
