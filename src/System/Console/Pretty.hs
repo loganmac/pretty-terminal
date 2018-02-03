@@ -4,8 +4,7 @@
 {-| Useful helpers to style and color text with ANSI escape sequences.
 -}
 module System.Console.Pretty
-( Color(..) , Section(..) , Style(..)
-, color , bgColor , colorize , style
+( Color(..) , Pretty(..) , Section(..) , Style(..)
 , supportsPretty)
 where
 
@@ -19,6 +18,7 @@ import           System.IO          (hIsTerminalDevice, stdout)
 ---------------------------------------------------------------------------------
 -- TYPES
 
+-- | A section to be colored, either foreground or background.
 data Section = Foreground | Background
 
 -- | Colors for an ANSI terminal
@@ -35,6 +35,7 @@ data Style
 ---------------------------------------------------------------------------------
 -- CLASS
 
+-- | A class to color and style
 class Pretty a where
   -- | Helper to set foreground color
   color :: Color -> a -> a
@@ -75,7 +76,7 @@ instance Pretty T.Text where
 ---------------------------------------------------------------------------------
 -- STRING
 
--- | Instance of `Pretty` for `String
+-- | Instance of `Pretty` for `String`
 instance Pretty String where
   colorize section col str =
     "\x1b[" <>          -- escape code
@@ -101,6 +102,7 @@ instance Pretty String where
 ---------------------------------------------------------------------------------
 -- SUPPORTED CHECK
 
+-- | Whether or not the current terminal supports pretty-terminal
 supportsPretty :: IO Bool
 supportsPretty =
   hSupportsANSI stdout
