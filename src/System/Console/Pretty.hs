@@ -105,7 +105,7 @@ instance Pretty String where
 -- | Whether or not the current terminal supports pretty-terminal
 supportsPretty :: IO Bool
 supportsPretty =
-  hSupportsANSI stdout
+  hSupportsPretty stdout
   where
     -- | Use heuristics to determine whether the functions defined in this
     -- package will work with a given handle.
@@ -113,9 +113,9 @@ supportsPretty =
     -- The current implementation checks that the handle is a terminal, and
     -- that the @TERM@ environment variable doesn't say @dumb@ (whcih is what
     -- Emacs sets for its own terminal).
-    hSupportsANSI :: Handle -> IO Bool
+    hSupportsPretty :: Handle -> IO Bool
     -- Borrowed from an HSpec patch by Simon Hengel
     -- (https://github.com/hspec/hspec/commit/d932f03317e0e2bd08c85b23903fb8616ae642bd)
-    hSupportsANSI h = (&&) <$> hIsTerminalDevice h <*> (not <$> isDumb)
+    hSupportsPretty h = (&&) <$> hIsTerminalDevice h <*> (not <$> isDumb)
       where
         isDumb = (== Just "dumb") <$> lookupEnv "TERM"
