@@ -33,7 +33,7 @@ ghc-options:
   - -Wtabs
 
 executables:
-  example:
+  pretty-terminal-example:
     main:                Main.hs
     source-dirs:         examples
     ghc-options:
